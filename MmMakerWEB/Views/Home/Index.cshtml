@@ -1,19 +1,23 @@
-﻿<div class="row justify-content-center">
-    <div class="col-md-8  p-2">
-        <h3>Przetwarzanie plików MM</h3>
+﻿<div ng-app="MmMakerApp" ng-controller="AppController">
+    <div class="row justify-content-center">
+        <div class="col-md-8  p-2">
+            <h3>Przetwarzanie plików MM</h3>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+
+        <div class="col-md-8">
+            <label class="btn btn-lg btn-primary">
+                Wczytaj plik
+                <input type="file" style="display:none;" id="filebrowser">
+            </label>
+            <label class="btn btn-primary btn-lg">
+                Eksport do Excela
+            </label>
+
+        </div>
+    
     </div>
 </div>
-<div class="row justify-content-center">
 
-    <div class="col-md-8">
-        <label class="btn btn-lg btn-primary">
-            Wczytaj plik
-            <input type="file" style="display:none;" id="filebrowser">
-        </label>
-        <label class="btn btn-primary btn-lg">
-            Eksport do Excela
-        </label>
-
-    </div>
-
-</div>
+@Scripts.Render("~/bundles/angularjs")
