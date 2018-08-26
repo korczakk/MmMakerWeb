@@ -31,6 +31,34 @@ namespace MmMakerWEB.Controllers
             return parsedContent;
         }
 
+        [HttpPost]
+        public HttpResponseMessage ExportToExcel(List<ExcelContent> content)
+        {
+            if (content == null)
+            {
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Dane do zasilenia pliku są wymagane."));
+            }
 
+            MemoryStream stream = new MemoryStream();
+            MmMakerExporter exporter = new MmMakerExporter(stream);
+
+            bool status = exporter.ExportToExcel(content);
+
+            if (status == false)
+            {
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Nie udało się wygenerować pliku XLS"));
+            }
+
+            stream.Position = 0;
+
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new ByteArrayContent(stream.ToArray());
+            response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+            response.Content.Headers.ContentDisposition.FileName = "Scalone.xls";
+            response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+            
+            return response;
+
+        }
     }
 }
