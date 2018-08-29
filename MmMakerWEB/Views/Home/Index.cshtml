@@ -10,12 +10,12 @@
         <div class="col-md-8">
             <label class="btn btn-lg btn-primary">
                 Wczytaj plik
-                <input type="file"  onchange="angular.element(this).scope().loadFile(this.files)" style="display:none;" id="filebrowser" >
+                <input type="file" accept=".xls"  onchange="angular.element(this).scope().loadFile(this.files)" style="display:none;" id="filebrowser" >
             </label>
             <label class="btn btn-primary btn-lg" ng-click="sendExcelContent()" >
                 Eksport do Excela
             </label>
-            <a class="ml-1" href="{{content}}" ng-hide="content == null">Pobierz plik</a>
+            <a class="ml-1" href="{{content}}" download="test.xls" ng-hide="content == null">Pobierz plik</a>
 
         </div>
 

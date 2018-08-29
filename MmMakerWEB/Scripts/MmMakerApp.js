@@ -1,7 +1,7 @@
 ﻿var app = angular.module("MmMakerApp", []);
 
 
-app.controller("AppController",  function ($scope, $http, $sce) {
+app.controller("AppController", function ($scope, $http, $sce) {
     $scope.excelContent = [];
     $scope.content;
     $scope.loadFile = function (files) {
@@ -28,11 +28,24 @@ app.controller("AppController",  function ($scope, $http, $sce) {
             data: data,
             responseType: 'arraybuffer'
         }).then(function (response) {
-            var file = new Blob([response.data], { type: "application/vnd.ms-excel" });
-            
+            var file = new Blob([response.data], { type: 'application/octet-stream' });
             var url = URL.createObjectURL(file);
-            
-            $scope.content = $sce.trustAsResourceUrl(url);
+
+
+            if (window.navigator.msSaveBlob) {  //IE
+                window.navigator.msSaveBlob(file, "Scalony.xls");
+            }
+            else {
+
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = "test.xls";
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            }
+
+            URL.revokeObjectURL(url);
         });
     }
 });

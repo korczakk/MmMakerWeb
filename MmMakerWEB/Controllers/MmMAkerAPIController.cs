@@ -32,7 +32,7 @@ namespace MmMakerWEB.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage ExportToExcel(List<ExcelContent> content)
+        public HttpResponseMessage ExportToExcel( List<ExcelContent> content)
         {
             if (content == null)
             {
@@ -52,7 +52,7 @@ namespace MmMakerWEB.Controllers
             stream.Position = 0;
 
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-            response.Content = new ByteArrayContent(stream.ToArray());
+            response.Content = new StreamContent (stream);
             response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
             response.Content.Headers.ContentDisposition.FileName = "Scalone.xls";
             response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
